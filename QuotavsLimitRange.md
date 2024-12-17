@@ -9,7 +9,7 @@ graph LR
     B --> D[Impedisce l'uso eccessivo di risorse nel namespace]
     C --> E[Limita risorse come CPU e memoria per tutti i pod]
     
-    F[LimitRange] --> G[Definisce limiti per singoli oggetti (es. Pod, Container)]
+    F[LimitRange] --> G[Definisce limiti per singoli oggetti es. Pod, Container]
     F --> H[Imposta valori di default per le risorse]
     G --> I[Controlla risorse minime e massime per i container]
     H --> J[Imposta risorse richieste e limiti per i container]
