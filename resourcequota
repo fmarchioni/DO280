@@ -1,7 +1,3 @@
-# Differenza tra `Requests` e `Limits` in un `ResourceQuota`
-
-Di seguito è riportato un diagramma che mostra la differenza tra `requests` e `limits` in un `ResourceQuota` in Kubernetes/OpenShift.
-
 ```mermaid
 graph TD
     A[ResourceQuota] --> B[Requests]
@@ -15,3 +11,5 @@ graph TD
     E --> J[Il pod non può essere schedulato se il nodo non ha risorse]
     G --> K[Pod rallentato se supera il limite di CPU]
     G --> L[Pod terminato se supera il limite di memoria]
+
+``` 
