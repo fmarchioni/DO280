@@ -1,0 +1,92 @@
+## Comandi Fondamentali di Helm
+
+### Installazione di Helm
+- **Installare Helm**:
+----
+ $   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+ $   chmod +x get_helm.sh
+ $   ./get_helm.sh
+----
+
+### Creazione di un Chart
+- **Creare un nuovo chart**:
+----
+    helm create [NOME_CHART]
+----
+    Questo comando genera una nuova directory con il nome specificato, contenente i file necessari per definire il chart, come `Chart.yaml`, `values.yaml`, e una cartella `templates` [1][3].
+
+### Installazione di un Chart
+- **Installare un chart**:
+----
+    helm install [NOME_RELEASE] [NOME_CHART]
+----
+    Dove `NOME_RELEASE` è il nome dell'istanza del chart che stai installando e `NOME_CHART` è il nome del chart stesso [1][3].
+
+### Aggiornamento e Gestione dei Chart
+- **Aggiornare una release**:
+----
+    helm upgrade [NOME_RELEASE] [NOME_CHART]
+----
+
+- **Disinstallare una release**:
+----
+    helm uninstall [NOME_RELEASE]
+----
+
+### Visualizzazione e Recupero delle Informazioni
+- **Visualizzare le release installate**:
+----
+    helm list
+----
+
+- **Recuperare i manifest delle risorse installate**:
+----
+    helm get manifest [NOME_RELEASE]
+----
+
+- **Recuperare i valori di una release**:
+----
+    helm get values [NOME_RELEASE]
+----
+
+### Validazione e Debugging
+- **Controllare la sintassi del chart**:
+----
+    helm lint [NOME_CHART]
+----
+
+- **Eseguire un dry run per testare l'installazione**:
+----
+    helm install --dry-run --debug [NOME_RELEASE] [NOME_CHART]
+----
+
+### Aggiunta di Repository di Chart
+- **Aggiungere un repository di chart**:
+----
+    helm repo add [NOME_REPO] [URL_REPO]
+----
+
+- **Aggiornare i repository di chart**:
+----
+    helm repo update
+----
+
+### Ricerca di Chart Disponibili
+- **Cercare chart nel repository**:
+----
+    helm search repo [TERMINI_DI_RICERCA]
+----
+
+## Struttura di un Chart Helm
+
+Un chart Helm tipico include i seguenti file e directory:
+
+- `Chart.yaml`: Metadata del chart (nome, versione, descrizione).
+
+- `values.yaml`: Valori predefiniti per le variabili utilizzate nei template.
+
+- `templates/`: Directory contenente i template YAML per le risorse Kubernetes.
+
+- `charts/`: Directory per eventuali dipendenze del chart.
+
+Utilizzando questi comandi e informazioni, puoi gestire efficacemente i tuoi chart Helm nel tuo cluster Kubernetes.
