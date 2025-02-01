@@ -43,7 +43,7 @@ kubectl diff -k overlays/dev
 
 ---
 
-== 📌 4. Eliminare le Risorse Create con Kustomize
+== 📌 4. Eliminare le Risorse Create con Kustomize ☠
 
 🔹 *Elimina tutte le risorse definite nella cartella Kustomize*
 ```sh
