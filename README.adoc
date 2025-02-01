@@ -1,0 +1,13 @@
+# Resources for OpenShift students
+
+## Links: 
+
+* Official Documentation: https://docs.openshift.com/
+
+* OpenShift offerings: https://www.redhat.com/en/technologies/cloud-computing/openshift
+
+* Kubernetes tools: https://collabnix.github.io/kubetools/
+
+* OpenShift LifeCycle: https://access.redhat.com/support/policy/updates/openshift
+
+* OpenShift update: https://access.redhat.com/labs/ocpupgradegraph/update_path/
