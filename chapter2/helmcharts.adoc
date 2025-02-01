@@ -1,0 +1,72 @@
+Per comprendere la differenza tra **Charts**, **Releases** e **Version** in Helm, possiamo analizzare ciascun concetto e fornire esempi concreti.
+
+## 1. Charts
+Un **Chart** è un pacchetto di risorse Kubernetes che descrive un'applicazione o un servizio. Contiene tutti i file necessari per installare l'applicazione, inclusi i file di configurazione e le dipendenze.
+
+### Esempio di struttura di un Chart
+Un Chart tipico ha la seguente struttura di directory:
+
+```
+mychart/
+  ├── Chart.yaml         # Metadati del chart
+  ├── values.yaml        # Valori di configurazione predefiniti
+  ├── templates/         # Modelli di risorse Kubernetes
+  │   ├── deployment.yaml
+  │   └── service.yaml
+```
+
+- **Chart.yaml**: Contiene informazioni sul chart, come il nome, la versione e la descrizione.
+- **values.yaml**: Contiene valori configurabili per il chart.
+- **templates/**: Directory contenente i file di modello che definiscono le risorse Kubernetes.
+
+## 2. Releases
+Una **Release** è un'istanza di un Chart installato in un cluster Kubernetes. Quando installi un Chart, crei una Release che incapsula la configurazione e lo stato della tua applicazione.
+
+### Comando per visualizzare le Releases
+Puoi visualizzare le Releases installate con il comando:
+```bash
+helm list
+```
+Questo comando mostrerà tutte le Releases nel tuo cluster, insieme al loro stato e alla versione del Chart utilizzato.
+
+## 3. Version
+La **Version** si riferisce alla versione specifica di un Chart. Ogni volta che apporti modifiche a un Chart (ad esempio, cambiando i file o aggiornando le dipendenze), dovresti incrementare la versione nel file **Chart.yaml**.
+
+### Esempio di `Chart.yaml`
+```yaml
+apiVersion: v2
+name: mychart
+description: A Helm chart for Kubernetes
+version: 1.0.0          # Versione del chart
+appVersion: "1.0"      # Versione dell'applicazione
+```
+
+## Visualizzazione delle Proprietà
+
+### Visualizzazione delle Proprietà di un Chart
+Puoi visualizzare le proprietà di un Chart specifico con il comando:
+```bash
+helm show chart mychart/
+```
+
+### Visualizzazione delle Proprietà di una Release
+Per visualizzare i dettagli di una Release specifica, usa:
+```bash
+helm get all myrelease
+```
+
+### Verifica della Versione del Chart in uso
+Puoi controllare la versione del Chart associata a una Release con:
+```bash
+helm list --output table
+```
+Questo mostrerà l'elenco delle Releases con le rispettive versioni dei Charts.
+
+## Riepilogo
+
+- **Charts** sono pacchetti che contengono tutte le risorse necessarie per installare un'applicazione.
+- **Releases** sono istanze specifiche di Charts installate in un cluster.
+- **Version** si riferisce alla versione specifica del Chart, utile per gestire aggiornamenti e modifiche.
+
+Questi concetti sono fondamentali per comprendere come Helm gestisce le applicazioni su Kubernetes e come puoi interagire con esse attraverso comandi e file di configurazione.
+
