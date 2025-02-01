@@ -10,4 +10,8 @@
 
 * OpenShift LifeCycle: https://access.redhat.com/support/policy/updates/openshift
 
+* Hybrid Cloud Console: https://console.redhat.com
+
 * OpenShift update: https://access.redhat.com/labs/ocpupgradegraph/update_path/
+
+* My Openshift Cheatsheet: https://tinyurl.com/re77f5ay
