@@ -1,0 +1,41 @@
+Sì, l'utente deve sempre esistere su LDAP, perché LDAP è la fonte primaria di autenticazione. In entrambi i casi, l'utente viene autenticato contro LDAP. La differenza tra i due mappingMethod riguarda cosa succede dopo la verifica dell'utente su LDAP:
+
+- **mappingMethod: claim**  
+  - Se l'utente esiste in LDAP e si autentica correttamente, OpenShift estrae il claim (ad esempio, il `uid`) e può **auto-provisionare** l'utente nel cluster se non esiste già un account corrispondente.
+  - Quindi, l'utente deve esistere su LDAP, ma non è necessario che l'utente sia già stato creato in OpenShift: il sistema può creare l'account automaticamente al primo login.
+
+- **mappingMethod: lookup**  
+  - Anche in questo caso l'utente deve esistere su LDAP per poter essere autenticato.
+  - Tuttavia, OpenShift esegue una ricerca (lookup) per verificare che l'account esista già nel cluster. Se l'account non è stato pre-provisionato, l'autenticazione verrà rifiutata.
+  - Quindi, oltre a esistere su LDAP, l'utente deve essere già stato creato manualmente (o tramite una procedura amministrativa) in OpenShift.
+
+In sintesi: l'utente deve esistere su LDAP per poter essere autenticato, mentre il mappingMethod determina se l'utente verrà automaticamente creato in OpenShift (claim) o se deve essere già presente (lookup).
+
+```mermaid
+graph TD;
+    subgraph LDAP Authentication
+        A[Utente tenta login su OpenShift] -->|Credenziali inviate| B[LDAP verifica utente]
+        B -->|Utente esiste in LDAP| C{MappingMethod}
+        B -->|Utente NON esiste in LDAP| X[Autenticazione fallita]
+    end
+
+    subgraph Scenario Claim
+        C -->|Claim| D[Estrazione claim ]
+        D -->|Utente esiste in OpenShift?| E{Esiste?}
+        E -->|No| F[Creazione automatica dell'utente]
+        E -->|Sì| G[Accesso con utente esistente]
+    end
+
+    subgraph Scenario Lookup
+        C -->|Lookup| H[Cerca utente in OpenShift]
+        H -->|Utente esiste?| I{Esiste?}
+        I -->|No| J[Autenticazione rifiutata]
+        I -->|Sì| K[Accesso con utente esistente]
+    end
+
+    %% Collegamenti tra i processi
+    F --> G
+    G --> L[Accesso consentito]
+    K --> L
+    J --> M[Accesso negato]
+```
