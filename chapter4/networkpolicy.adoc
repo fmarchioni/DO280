@@ -1,0 +1,48 @@
+# Network Policy
+
+Regole:
+
+* **Senza una deny-all policy**:
+
+I pod che non sono selezionati da alcuna NetworkPolicy possono comunicare liberamente (in base al comportamento predefinito del plugin di rete, che solitamente consente tutto).
+I pod selezionati da una NetworkPolicy invece possono comunicare solo se il traffico corrisponde alle regole definite.
+
+* **Con una deny-all policy**:
+
+Tutto il traffico (in ingresso, in uscita o entrambi) viene bloccato per i pod target, salvo che non venga autorizzato da regole specifiche aggiuntive
+
+## Demo
+
+* crea project demo
+  *  crea pod example1 app=httpd1
+* crea project demo2
+  *  crea pod example2 app=httpd2
+
+*  oc rsh example1
+
+----
+$ curl IP-POD-example2:8080  OK
+----
+  
+* crea Networkpolicy nel progetto demo2
+----
+|---pod selector app=httpd2
+|--Add ingress rule: Allow from Pods in the same namespace
+----
+  
+* oc project demo
+* oc rsh example1
+
+----  
+$ curl IP-POD-example2:8080  KO perchè il Pod è finito nel selector
+----
+* Rimuovi network policy
+----
+$ curl IP-POD-example2:8080  OK
+----
+  
+*  Aggiungi Network policy deny-all
+
+----
+$ curl IP-POD-example2:8080  KO 
+----
