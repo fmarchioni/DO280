@@ -45,8 +45,14 @@ oc get pods --show-labels -n project2  # app=httpd2
 
 ## Creazione di una Network Policy da Console Web
 
-1. Creare una **Network Policy** su `project2` con **target** `app=httpd2` e **allow** solo dai pod nello stesso namespace.
-2. Verificare la connettività:
+Creare una **Network Policy** su `project2` con **target** `app=httpd2` e **allow** solo dai pod nello stesso namespace.
+
+![Descrizione immagine](np1.png)
+![Descrizione immagine](np2.png)
+![Descrizione immagine](np3.png)
+
+   
+Verificare la connettività:
 
 ```sh
 # KO: Il pod di project1 non può più raggiungere il pod di project2
