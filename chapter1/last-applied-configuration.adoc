@@ -1,0 +1,68 @@
+= Effetto di `oc apply -f` su `kubectl.kubernetes.io/last-applied-configuration`
+
+== Creazione di un Deployment YAML  
+
+Per creare un deployment e salvare la configurazione applicata, utilizzare il seguente comando:  
+
+[source,shell]  
+----
+oc create deployment hello-openshift -o yaml \
+  --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0 \
+  --save-config --dry-run=client > example-deployment.yaml
+----
+
+Questo comando genera un file YAML (`example-deployment.yaml`) e include l'annotazione `kubectl.kubernetes.io/last-applied-configuration`, che rappresenta l'ultima configurazione applicata con `oc apply -f`.  
+
+Se invece creiamo il deployment senza l'opzione `--save-config`, la configurazione non verrà salvata:  
+
+[source,shell]  
+----
+oc create deployment hello-openshift -o yaml \
+  --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0 \
+  --dry-run=client > example-deployment.yaml
+----
+
+A questo punto, possiamo verificare i pod esistenti nel cluster:  
+
+[source,shell]  
+----
+oc get pods
+----
+
+== Modifica del Deployment e Applicazione della Configurazione  
+
+Modifichiamo il file `example-deployment.yaml` per impostare il numero di repliche a `2`:  
+
+[source,yaml]  
+----
+spec:
+  replicas: 2
+----
+
+[source,shell]
+----
+oc apply -f example-deployment.yaml
+----
+
+Il comando oc apply aggiorna il deployment e registra la nuova configurazione nell'annotazione kubectl.kubernetes.io/last-applied-configuration.
+
+== Verifica della Configurazione Salvata
+
+Possiamo verificare che l'annotazione contiene il valore aggiornato (replicas: 2):
+[source,shell]
+oc edit deployment hello-openshift
+
+L'output mostrerà l'annotazione kubectl.kubernetes.io/last-applied-configuration con il valore "replicas": 2.
+
+== Modifica Manuale delle Repliche
+
+Se modifichiamo manualmente il numero di repliche con oc edit:
+[source,shell]
+oc edit deployment hello-openshift
+
+e cambiamo il valore delle repliche, noteremo che l'annotazione kubectl.kubernetes.io/last-applied-configuration rimane invariata a 2, ovvero l'ultima configurazione applicata tramite oc apply -f.
+
+== Conclusione
+
+L'annotazione kubectl.kubernetes.io/last-applied-configuration mantiene l'ultima configurazione applicata con oc apply -f.
+Modifiche manuali tramite oc edit o oc scale non alterano questa annotazione, poiché rappresenta lo stato dell'ultima applicazione dichiarativa del deployment.
