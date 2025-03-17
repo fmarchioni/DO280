@@ -73,3 +73,23 @@ oc exec -n project1 $POD1 -- curl -s http://$IP2:8080
 
 # OK: Il pod di project2 può ancora contattare il pod di project1
 oc exec -n project2 $POD2 -- curl -s http://$IP1:8080
+```
+
+## Network policies vs firewalls
+
+* Le OpenShift NetworkPolicies sono additive
+
+- Servono solo per consentire il traffico; non bloccano esplicitamente.
+- Se qualsiasi policy permette il traffico, allora è consentito.
+- Se nessuna policy permette il traffico, viene bloccato (modello deny-by-default).
+
+I firewall Linux (iptables/firewalld) usano il principio "first-match-wins" o regole ordinate
+
+- Le regole vengono valutate in ordine (iptables le processa dall’alto verso il basso).
+- Se una regola DROP viene trovata prima di una ACCEPT, il traffico viene bloccato.
+- Se una regola ACCEPT viene trovata prima di una DROP, il traffico è consentito.
+
+### Conclusione:
+
+- Nelle OpenShift NetworkPolicies, la policy più permissiva prevale.
+- Nei firewall Linux, prevale la prima regola corrispondente (l'ordine è fondamentale).
