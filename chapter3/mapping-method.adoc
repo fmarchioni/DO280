@@ -1,4 +1,4 @@
-Sì, l'utente deve sempre esistere su LDAP, perché LDAP è la fonte primaria di autenticazione. In entrambi i casi, l'utente viene autenticato contro LDAP. La differenza tra i due mappingMethod riguarda cosa succede dopo la verifica dell'utente su LDAP:
+== Mapping method: claim vs lookup
 
 - **mappingMethod: claim**  
   - Se l'utente esiste in LDAP e si autentica correttamente, OpenShift estrae il claim (ad esempio, il `uid`) e può **auto-provisionare** l'utente nel cluster se non esiste già un account corrispondente.
