@@ -124,7 +124,9 @@ oc scale deployment microprofile-config-app --replicas 0
 ### 16. Deploy the MicroProfile Health application
 ```bash
 # Deploy the microprofile-health example using Helm
+
 helm install microprofile-health wildfly/wildfly -f https://raw.githubusercontent.com/wildfly/quickstart/refs/heads/main/microprofile-health/charts/helm.yaml
+
 ```
 
 ### 17. Create an additional service for the Health Service on Port 9990
