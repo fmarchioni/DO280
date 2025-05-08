@@ -1,6 +1,4 @@
-Ecco il testo riformattato in **Markdown**, con **commenti esplicativi** passo-passo per spiegare l'uso di `NodePort` in OpenShift:
-
----
+ 
 
 # ⚙️ Configurazione accesso MySQL tramite NodePort
 
