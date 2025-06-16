@@ -62,6 +62,35 @@ oc edit deployment hello-openshift
 
 e cambiamo il valore delle repliche, noteremo che l'annotazione kubectl.kubernetes.io/last-applied-configuration rimane invariata a 2, ovvero l'ultima configurazione applicata tramite oc apply -f.
 
+== Modifica via comando Patch
+
+Anche se modifichiamo la risorsa con il comando Patch, il campo last-applied-configuration rimarrà invariato:
+
+Dimostrazione pratica:
+
+[source,shell]
+----
+oc create deployment hello-openshift -o yaml \
+  --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0 \
+  --save-config --dry-run=client > example-deployment.yaml
+
+oc patch deployment hello-openshift --type merge -p '{"spec": {"replicas": 2}}'
+
+oc edit oc deployment hello-openshift
+----
+
+[source,yaml]
+----
+# Repliche non modificate nel last-applied-configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"creationTimestamp":null,"labels":{"app":"hello-openshift"},"name":"hello-openshift","namespace":"demo"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"hello-openshift"}},"strategy":{},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"hello-openshift"}},"spec":{"containers":[{"image":"registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:v1.0","name":"hello-world-nginx","resources":{}}]}}},"status":{}}
+----
+
 == Conclusione
 
 L'annotazione kubectl.kubernetes.io/last-applied-configuration mantiene l'ultima configurazione applicata con oc apply -f.
