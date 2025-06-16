@@ -1,11 +1,11 @@
 == Mapping method: claim vs lookup
 
 - **mappingMethod: claim**  
-  - Se l'utente esiste in LDAP e si autentica correttamente, OpenShift estrae il claim (ad esempio, il `uid`) e può **auto-provisionare** l'utente nel cluster se non esiste già un account corrispondente.
-  - Quindi, l'utente deve esistere su LDAP, ma non è necessario che l'utente sia già stato creato in OpenShift: il sistema può creare l'account automaticamente al primo login.
+  - Se l'utente esiste nel provider (es. LDAP) e si autentica correttamente, OpenShift estrae il claim (ad esempio, il `uid`) e può **auto-provisionare** l'utente nel cluster se non esiste già un account corrispondente.
+  - Quindi, l'utente deve esistere sul Provider, ma non è necessario che l'utente sia già stato creato in OpenShift: il sistema può creare l'account automaticamente al primo login.
 
 - **mappingMethod: lookup**  
-  - Anche in questo caso l'utente deve esistere su LDAP per poter essere autenticato.
+  - Anche in questo caso l'utente deve esistere sul Provider (es. LDAP) per poter essere autenticato.
   - Tuttavia, OpenShift esegue una ricerca (lookup) per verificare che l'account esista già nel cluster. Se l'account non è stato pre-provisionato, l'autenticazione verrà rifiutata.
   - Quindi, oltre a esistere su LDAP, l'utente deve essere già stato creato manualmente (o tramite una procedura amministrativa) in OpenShift.
 
