@@ -10,6 +10,9 @@ oc policy add-role-to-user edit \
 
 La stessa operazione può essere eseguita da console creando un RoleBinding a Livello di cluster con questi settaggi:
 
+![Configmap Reloader Diagram](lab8.4.png)
+
+
 ## Permessi più granulari
 
 Vediamo adesso come ottenere una configurazione più granulare per un **ServiceAccount** in OpenShift che deve:
