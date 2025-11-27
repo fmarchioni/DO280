@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: parallel-job-demo
+spec:
+  completions: 5
+  parallelism: 5
+  completionMode: Indexed
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: worker
+        image: registry.access.redhat.com/ubi9/ubi-minimal
+        command:
+        - /bin/bash
+        - -c
+        - |
+          echo "Esecuzione dell’indice: ${JOB_COMPLETION_INDEX}"
