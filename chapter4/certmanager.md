@@ -146,16 +146,7 @@ spec:
           class: nginx
 ```
 
-* Questo ClusterIssuer permette di ottenere **certificati pubblici validi su internet**.
-* Basta poi creare un Certificate che punti a questo ClusterIssuer.
-* In questo modo gli studenti capiscono che **Cert-Manager non è solo per demo o self-signed**, ma è uno strumento universale per gestire TLS in OpenShift e Kubernetes.
 
----
-
-## ✅ Conclusione
-
-* Con pochi YAML, Cert-Manager automatizza tutta la gestione TLS: creazione, firma, rinnovo e distribuzione dei certificati.
-* Gli studenti possono vedere chiaramente il vantaggio di usare un Operator: **riduce errori, aumenta sicurezza e offre flessibilità verso qualsiasi provider di certificati**.
 
 ---
 
